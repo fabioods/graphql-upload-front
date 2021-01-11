@@ -27,6 +27,7 @@ const UPLOAD_FILE = gql`
       filename
       mimetype
       encoding
+      base64
     }
   }
 `;
