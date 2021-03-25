@@ -22,8 +22,8 @@ const client = new ApolloClient({
 });
 
 const UPLOAD_FILE = gql`
-  mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
+  mutation SingleUpload($files: [Upload!]) {
+    singleUpload(files: $files) {
       filename
       mimetype
       encoding
@@ -31,6 +31,8 @@ const UPLOAD_FILE = gql`
     }
   }
 `;
+
+console.log("opa");
 
 function App() {
   return (
@@ -50,12 +52,13 @@ function App() {
                   encType={"multipart/form-data"}
                 >
                   <input
+                    multiple
                     name={"document"}
                     type={"file"}
                     onChange={({ target: { files } }) => {
                       const file = files[0];
                       console.log("file", file);
-                      file && singleUpload({ variables: { file } });
+                      file && singleUpload({ variables: { files } });
                     }}
                   />
                   {loading && <p>Loading.....</p>}
